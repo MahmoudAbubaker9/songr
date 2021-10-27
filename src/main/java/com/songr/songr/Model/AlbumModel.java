@@ -1,5 +1,9 @@
-package com.songr.songr;
+package com.songr.songr.Model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+//@GeneratedValue(strategy = GenerationType.IDENTITY)
 public class AlbumModel {
     private String title;
     private String artist;
