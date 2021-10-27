@@ -9,14 +9,40 @@
 <body>
 <h1 align="center" >Albums:</h1>
 
-<div align="center" th:each="album : ${albums}" >
-    <p>Title: <span th:text=${album.title}></span></p>
-    <p>Artist: <span th:text="${album.artist}"></span></p>
-    <p>Song Count: <span th:text="${album.songCount}"></span></p>
-    <p>Length: <span th:text="${album.length}"></span></p>
-    <img th:src=@{${album.imageUrl}} width="400" height="500">
-    <hr>
-</div>
+<form action="/albums" method="post">
+    <fieldset>
+        <legend>Add Album</legend>
+        <label for="imageUrl"> Image Url:</label>
+        <input type="text" name="imageUrl">
+        <br>
+        <label for="title"> Album Title:</label>
+        <input type="text" name="title">
+        <br>
+        <label for="artist"> Artist Name:</label>
+        <input type="text" name="artist">
+        <br>
+        <label for="songCount"> Song Count:</label>
+        <input type="number" name="songCount">
+        <br>
+        <label for="length"> Album Length in Seconds:</label>
+        <input type="number" name="length">
+        <br>
+        <input type="submit" value="Add new album">
+    </fieldset>
+</form>
+
+<ul>
+    <div th:each="album : ${albums}" >
+        <p>Title: <span th:text=${album.title}></span></p>
+        <hr>
+        <p>Artist: <span th:text="${album.artist}"></span></p>
+        <hr>
+        <p>Song Count: <span th:text="${album.songCount}"></span></p>
+        <hr>
+        <p>Length: <span th:text="${album.length}"></span></p>
+        <img th:src=@{${album.imageUrl}} width="400" height="500">
+
+    </div></ul>
 
 </body>
 </html>

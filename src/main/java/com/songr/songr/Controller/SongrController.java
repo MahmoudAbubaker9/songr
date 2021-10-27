@@ -2,15 +2,23 @@ package com.songr.songr.Controller;
 
 import com.songr.songr.Model.AlbumModel;
 import com.songr.songr.Repositories.AlbumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
+@RequestMapping(
+        method={RequestMethod.POST,RequestMethod.GET}
+)
 public class SongrController {
+
+    @Autowired
+    AlbumRepository AlbumRepository;
 
     ////////// Create a hello world route
     @GetMapping("/hello")
@@ -27,29 +35,21 @@ public class SongrController {
     }
 
 //    ////////// Create an Album class to act as a model in our app
-    @GetMapping("/albums")
-    public String getAlbums(Model model){
-//        AlbumModel album1 = new AlbumModel("The Shawshank Redemption", "Morgan Freeman",230,40,"https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZDIzLWFmNTEtODM1ZmRlYWMwMWFmXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg");
-//        AlbumModel album2 = new AlbumModel("The Godfather", "Marlon Brando",3,230,"https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg");
-//        AlbumModel album3 = new AlbumModel("The Godfather 2", "Marlon Brando",4,230,"https://m.media-amazon.com/images/M/MV5BMWMwMGQzZTItY2JlNC00OWZiLWIyMDctNDk2ZDQ2YjRjMWQ0XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg");
-//        ArrayList<AlbumModel> allAlbums = new ArrayList<>();
-//        allAlbums.add(album1);
-//        allAlbums.add(album2);
-//        allAlbums.add(album3);
-        model.addAttribute("albums",AlbumRepository.findAll());
+@GetMapping("/albums")
+public String albumPage(Model model){
+    List<AlbumModel> albums = AlbumRepository.findAll();
+    model.addAttribute("albums", albums);
+    return "Albums";
+}
 
-        return "albums";
-    }
-
-//////////
-    @PostMapping("/addalbum")
-    public RedirectView addAlbum(@ModelAttribute AlbumModel album, Model model){
-        model.addAttribute("album", album);
-        AlbumRepository.save(album);
+    @PostMapping("/addalbums")
+    public RedirectView createAlbum(String title, String artist, int songCount, int lengthInS, String imageURL){
+        AlbumModel newAlbum = new AlbumModel(title, artist, songCount, lengthInS, imageURL);
+        AlbumRepository.save(newAlbum);
         return new RedirectView("/albums");
     }
 
-    ////////// Create an Album class to act as a model in our app
+    //////////
     @GetMapping("/")
     public String Home(){
         return "Home";
