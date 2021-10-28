@@ -2,10 +2,8 @@ package com.songr.songr.Model;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class AlbumModel {
@@ -17,6 +15,8 @@ public class AlbumModel {
     private int songCount;
     private int length;
     private String imageUrl;
+    @OneToMany(mappedBy = "album")
+    List<AlbumModel> album;
 
     public AlbumModel(String title, String artist, int songCount, int length, String imageUrl) {
         this.title = title;
@@ -24,7 +24,9 @@ public class AlbumModel {
         this.songCount = songCount;
         this.length = length;
         this.imageUrl = imageUrl;
+
     }
+
 
     public int getId() {
         return id;

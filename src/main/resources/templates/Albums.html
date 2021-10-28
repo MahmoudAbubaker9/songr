@@ -13,19 +13,19 @@
     <fieldset>
         <legend>Add Album</legend>
         <label for="imageUrl"> Image Url:</label>
-        <input type="text" name="imageUrl">
+        <input type="text" id="imageUrl" name="imageUrl">
         <br>
         <label for="title"> Album Title:</label>
-        <input type="text" name="title">
+        <input type="text" id="title" name="title">
         <br>
         <label for="artist"> Artist Name:</label>
-        <input type="text" name="artist">
+        <input type="text" id="artist" name="artist">
         <br>
         <label for="songCount"> Song Count:</label>
-        <input type="number" name="songCount">
+        <input type="number" id="songCount" name="songCount">
         <br>
         <label for="length"> Album Length in Seconds:</label>
-        <input type="number" name="length">
+        <input type="number" id="length" name="length">
         <br>
         <input type="submit" value="Add new album">
     </fieldset>
@@ -34,11 +34,11 @@
 <ul>
     <div th:each="album : ${albums}" >
         <p>Title: <span th:text=${album.title}></span></p>
-        <hr>
+        <br>
         <p>Artist: <span th:text="${album.artist}"></span></p>
-        <hr>
+        <br>
         <p>Song Count: <span th:text="${album.songCount}"></span></p>
-        <hr>
+        <br>
         <p>Length: <span th:text="${album.length}"></span></p>
         <img th:src=@{${album.imageUrl}} width="400" height="500">
 
