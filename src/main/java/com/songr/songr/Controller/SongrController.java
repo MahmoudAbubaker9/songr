@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping(
-        method={RequestMethod.POST,RequestMethod.GET}
-)
+//@RequestMapping(
+//        method={RequestMethod.POST,RequestMethod.GET}
+//)
 public class SongrController {
 
     @Autowired
@@ -54,14 +54,14 @@ public String albumPage(Model model){
 }
     //// for add albums
     @PostMapping("/addalbums")
-    public RedirectView newAlbum(String title, String artist, int songCount, int lengthInS, String imageURL){
-        AlbumModel newAlbum = new AlbumModel(title, artist, songCount, lengthInS, imageURL);
+    public RedirectView newAlbum(String title, String artist, int songCount, int length, String imageURL){
+        AlbumModel newAlbum = new AlbumModel(title, artist, songCount, length, imageURL);
         AlbumRepository.save(newAlbum);
         return new RedirectView("/albums");
     }
 
     @GetMapping("/album/{id}")
-    public String IdAlbum(Model model,@PathVariable long id){
+    public String IdaAlbum(Model model,@PathVariable long id){
         AlbumModel album = AlbumRepository.findById(id).get();
         model.addAttribute("album", album);
         List<Song> song= SongRepository.findByTitle(album.getTitle());
@@ -77,7 +77,7 @@ public String albumPage(Model model){
     }
 
     @PostMapping("/addsong")
-    public RedirectView addSong(Song song, Model model,@PathVariable long IdAlbum){
+    public RedirectView addSong(Song song, Model model,@RequestParam long IdAlbum){
         AlbumModel album = AlbumRepository.findById(IdAlbum).get();
         model.addAttribute("song", song);
         Song newSong = new Song(song.getTitle(), song.getLength() , album);
