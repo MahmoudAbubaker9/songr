@@ -61,7 +61,7 @@ public String albumPage(Model model){
     }
 
     @GetMapping("/album/{id}")
-    public String IdaAlbum(Model model,@PathVariable long id){
+    public String IddAlbum(Model model,@PathVariable long id){
         AlbumModel album = AlbumRepository.findById(id).get();
         model.addAttribute("album", album);
         List<Song> song= SongRepository.findByTitle(album.getTitle());
