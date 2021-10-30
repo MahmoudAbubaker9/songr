@@ -16,6 +16,9 @@ public class Song {
     @ManyToOne
     AlbumModel album;
 
+    public Song() {
+    }
+
     public Song(String title, int length, int trackNumber, AlbumModel album) {
         this.title = title;
         this.length = length;
